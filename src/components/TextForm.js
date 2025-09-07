@@ -21,6 +21,13 @@ export default function TextForm(props) {
     setVowelCount(0);
   };
 
+ const handleCopy = () => {
+    let text = document.getElementById("myBox");
+    text.select();
+    navigator.clipboard.writeText(text.value);
+ }
+
+
   const handleVowelCount = () => {
     let count = 0;
     for (let char of text.toLowerCase()) {
@@ -46,8 +53,8 @@ export default function TextForm(props) {
   };
 
   const handleExtraSpaces = () => {
-    let newText = text.split(/[ ]+/).join(" ");
-    setText(newText.trim());
+    let newText = text.split(/[ ]+/)
+    setText(newText.join(" "));
   };
 
   const [text, setText] = useState("");
@@ -55,10 +62,11 @@ export default function TextForm(props) {
 
   return (
     <>
-      <div className="container">
+      <div className="container" style={{color : props.mode === 'dark' ? 'white' : 'black'}}>
         <h1>{props.heading}</h1>
         <div className="mb-3">
           <textarea
+            style={{backgroundColor : props.mode === 'dark' ? 'grey' : 'white', color : props.mode === 'dark' ? 'white' : 'black' }}
             className="form-control"
             value={text}
             onChange={handleOnChange}
@@ -81,6 +89,9 @@ export default function TextForm(props) {
         <button className="btn btn-primary mx-2" onClick={handleExtraSpaces}>
           Remove Extra Spaces
         </button>
+        <button className="btn btn-primary mx-2" onClick={handleCopy}>
+          Copy Text
+        </button>
         <button
           type="submit"
           onClick={speak}
@@ -90,14 +101,14 @@ export default function TextForm(props) {
           Speak
         </button>
       </div>
-      <div className="container my-3">
+      <div className="container my-3" style={{color : props.mode === 'dark' ? 'white' : 'black'}}>
         <h1>Your text summary</h1>
         <p>
           {text.split(" ").length} words and {text.length} characters
         </p>
         <p>{0.008 * text.split(" ").length} Minutes to Read</p>
         <h2>Preview</h2>
-        <p>{text}</p>
+        <p>{text.length > 0 ? text : "Enter something in the text box above to preview it here"}</p>
         <h2>Total Vowel count</h2>
         <p>{vowelCount}</p>
       </div>
