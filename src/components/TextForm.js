@@ -71,7 +71,7 @@ export default function TextForm(props) {
         <h1>{props.heading}</h1>
         <div className="mb-3">
           <textarea
-            style={{backgroundColor : props.mode === 'dark' ? 'grey' : 'white', color : props.mode === 'dark' ? 'white' : 'black' }}
+            style={{backgroundColor : props.mode === 'dark' ? '#020c2e' : 'white', color : props.mode === 'dark' ? 'white' : 'black' }}
             className="form-control"
             value={text}
             onChange={handleOnChange}
@@ -109,7 +109,7 @@ export default function TextForm(props) {
       <div className="container my-3" style={{color : props.mode === 'dark' ? 'white' : 'black'}}>
         <h1>Your text summary</h1>
         <p>
-          {text.split(" ").length} words and {text.length} characters
+          {text.trim().length === 0 ? 0 : text.trim().split(/\s+/).length} words and {text.length} characters
         </p>
         <p>{0.008 * text.split(" ").length} Minutes to Read</p>
         <h2>Preview</h2>
